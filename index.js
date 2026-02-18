@@ -11,8 +11,8 @@ const BC_BASE_URL = process.env.BC_BASE_URL || 'https://bc20stage-api.gabrielny.
 
 app.get('/api/*', (req, res) => {
     const path = req.params[0];
-    const queryString = Object.keys(req.query).length 
-        ? '?' + new URLSearchParams(req.query).toString() 
+    const queryString = Object.keys(req.query).length
+        ? '?' + new URLSearchParams(req.query).toString()
         : '';
     const targetUrl = BC_BASE_URL + '/' + path + queryString;
 
@@ -29,9 +29,7 @@ app.get('/api/*', (req, res) => {
             console.error('NTLM Error:', err);
             return res.status(500).json({ error: err.message });
         }
-
         console.log('BC Status:', response.statusCode);
-
         try {
             const data = JSON.parse(response.body);
             res.json(data);
@@ -48,10 +46,3 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
     console.log('BC NTLM Proxy running on port ' + PORT);
 });
-```
-
----
-
-**File 3 — `Procfile`** (no extension, exactly this):
-```
-web: node index.js
